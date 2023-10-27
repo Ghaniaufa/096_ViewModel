@@ -109,6 +109,19 @@ fun TampilForm(cobaViewModel1: CobaViewModel1  = viewModel()) {
                 textTlp = it
             }
         )
+    OutlinedTextField(
+        value = textEmail,
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        shape = MaterialTheme.shapes.large,
+        modifier = Modifier.fillMaxWidth(),
+        label = {Text(text = "Email") },
+        onValueChange = {
+            textEmail = it
+        }
+    )
+
+
 
     selectJK(
         options = jenis.map { id -> context.resources.getString(id) },
@@ -117,7 +130,7 @@ fun TampilForm(cobaViewModel1: CobaViewModel1  = viewModel()) {
     Button(
         modifier = Modifier.fillMaxWidth(),
         onClick = {
-            cobaViewModel1.insertData(textNama, textTlp, dataForm.sex)
+            cobaViewModel1.insertData(textUsername, textTlp,  dataForm.sex)
         }
     ){
         Text(text = stringResource(R.string.submit))
