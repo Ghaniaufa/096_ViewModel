@@ -5,4 +5,8 @@ object DataSource {
         R.string.laki, //ini berasal dari values strings.xml
         R.string.wanita //ini berasal dari values strings.xml
     )
+    val Status = listOf(
+        "BelumMenikah",
+        "Menikah"
+    )
 }

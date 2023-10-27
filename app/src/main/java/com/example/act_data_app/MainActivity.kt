@@ -127,6 +127,7 @@ fun TampilForm(cobaViewModel1: CobaViewModel1  = viewModel()) {
         options = jenis.map { id -> context.resources.getString(id) },
         onSelectionChanged = { cobaViewModel1.setJenisk(it) }
     )
+    selectStat(options = )
     Button(
         modifier = Modifier.fillMaxWidth(),
         onClick = {
@@ -162,6 +163,38 @@ fun selectJK(
                 ),
                 verticalAlignment = Alignment.CenterVertically
             ){
+                RadioButton(
+                    selected = selectedValue == item,
+                    onClick = {
+                        selectedValue = item
+                        onSelectionChanged(item)
+                    }
+                )
+                Text(item)
+            }
+        }
+    }
+}
+
+
+@Composable
+fun selectStat(
+    options: List<String>,
+    onSelectionChanged: (String) -> Unit = {}
+) {
+    var selectedValue by rememberSaveable { mutableStateOf("") }
+
+    Row(modifier = Modifier.padding(16.dp)) {
+        options.forEach { item ->
+            Column(
+                modifier = Modifier.selectable(
+                    selected = selectedValue == item,
+                    onClick = {
+                        selectedValue = item
+                        onSelectionChanged(item)
+                    }
+                )
+            ) {
                 RadioButton(
                     selected = selectedValue == item,
                     onClick = {
