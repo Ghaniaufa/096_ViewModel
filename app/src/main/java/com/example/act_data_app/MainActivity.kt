@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.act_data_app.data.DataForm
 import com.example.act_data_app.data.DataSource.jenis
+import com.example.act_data_app.data.DataSource.setatus
 import com.example.act_data_app.ui.theme.Act_data_appTheme
 
 class MainActivity : ComponentActivity() {
@@ -76,6 +77,11 @@ fun TampilLayout(modifier: Modifier = Modifier) {
     }
 }
 
+@Composable
+fun SelectStat(options: Any) {
+
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TampilForm(cobaViewModel1: CobaViewModel1  = viewModel()) {
@@ -93,7 +99,7 @@ fun TampilForm(cobaViewModel1: CobaViewModel1  = viewModel()) {
             singleLine = true,
             shape = MaterialTheme.shapes.large,
             modifier = Modifier.fillMaxWidth(),
-            label = {Text(text = "Nama Lengkap") },
+            label = {Text(text = "Username") },
             onValueChange = {
                 textUsername = it
             }
@@ -112,36 +118,32 @@ fun TampilForm(cobaViewModel1: CobaViewModel1  = viewModel()) {
     OutlinedTextField(
         value = textEmail,
         singleLine = true,
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         shape = MaterialTheme.shapes.large,
         modifier = Modifier.fillMaxWidth(),
-        label = {Text(text = "Email") },
+        label = {Text(text = "email") },
         onValueChange = {
             textEmail = it
         }
     )
-
-
-
     selectJK(
         options = jenis.map { id -> context.resources.getString(id) },
         onSelectionChanged = { cobaViewModel1.setJenisk(it) }
     )
-    selectStat(options = )
+    SelectStat(
+        options = setatus.map { id -> context.resources.getString(id) },
+        onSelectionChanged = { cobaViewModel1.Stat(it)}
+    )
     Button(
         modifier = Modifier.fillMaxWidth(),
         onClick = {
-            cobaViewModel1.insertData(textUsername, textTlp,  dataForm.sex)
+            cobaViewModel1.insertData(textUsername, textTlp, textEmail, dataForm.status, dataForm.sex)
         }
     ){
         Text(text = stringResource(R.string.submit))
     }
     Spacer(modifier = Modifier.height(100.dp))
     TextHasil(
-        namanya = cobaViewModel1.namaUsr,
-        telponnya = cobaViewModel1.noTLp,
-        jenisnya = cobaViewModel1.jenisKL
-    )
+
 }
 
 @Composable
@@ -211,7 +213,7 @@ fun selectStat(
 
 
 @Composable
-fun TextHasil(namanya: String, telponnya: String, jenisnya: String) {
+fun TextHasil(JenisKelamin: String, Status: String, Alamat: String, Email: String) {
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
@@ -221,17 +223,22 @@ fun TextHasil(namanya: String, telponnya: String, jenisnya: String) {
             .fillMaxWidth()
     ){
         Text(
-            text = "Nama : " + namanya,
+            text = "Jenis Kelamin : " + JenisKelamin,
             modifier = Modifier
                 .padding(horizontal = 10.dp, vertical = 4.dp)
         )
         Text(
-            text = "Telepon : " + telponnya,
+            text = "Status : " + Status,
             modifier = Modifier
                 .padding(horizontal = 10.dp, vertical = 5.dp)
         )
         Text(
-            text = "Jenis Kelamin : " + jenisnya,
+            text = "Alamat : " + Alamat,
+            modifier = Modifier
+                .padding(horizontal = 10.dp, vertical = 5.dp)
+        )
+        Text(
+            text = "Email : " + Email,
             modifier = Modifier
                 .padding(horizontal = 10.dp, vertical = 5.dp)
         )
