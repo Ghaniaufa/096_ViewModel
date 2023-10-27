@@ -79,8 +79,9 @@ fun TampilLayout(modifier: Modifier = Modifier) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TampilForm(cobaViewModel1: CobaViewModel1  = viewModel()) {
-    var textNama by remember { mutableStateOf("")}
+    var textUsername by remember { mutableStateOf("")}
     var textTlp by remember { mutableStateOf("")}
+    var textEmail by remember { mutableStateOf("")}
 
     val context = LocalContext.current
     val dataForm: DataForm
@@ -88,13 +89,13 @@ fun TampilForm(cobaViewModel1: CobaViewModel1  = viewModel()) {
     dataForm = uiState
 
     OutlinedTextField(
-            value = textNama,
+            value = textUsername,
             singleLine = true,
             shape = MaterialTheme.shapes.large,
             modifier = Modifier.fillMaxWidth(),
             label = {Text(text = "Nama Lengkap") },
             onValueChange = {
-                textNama = it
+                textUsername = it
             }
         )
         OutlinedTextField(
